@@ -4,6 +4,10 @@
 #
 # This program is distributed under the terms of the GNU General Public License v3 (see COPYING)
 
+import os
+
+os.environ["DISPLAY"] = ":0"
+
 from pyfzf.pyfzf import FzfPrompt
 
 import gi
@@ -19,4 +23,6 @@ icons.sort(key=str.casefold)
 for icon in icons:
     print(icon)
 
-fzf.prompt(choices=icons, fzf_options='--no-sort --exact')
+selected_name = fzf.prompt(choices=icons, fzf_options='--no-sort --exact')[0]
+
+print(gtk_icon_theme.lookup_icon(selected_name, 256, 0).get_filename())
